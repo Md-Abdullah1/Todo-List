@@ -20,10 +20,10 @@ const Todos = () => {
       ) : (
         todos.map((todo, index) => {
           return (
-            <div key={index} className='w-full bg-blue-50  p-3 flex gap-2 justify-between shadow rounded-full items-center '>
-              <h4 className='text-blue-700 text-lg font-bold ' >{todo.title}</h4>
-              <p className='text-blue-500 text-balance font-semibold '>{todo.desc}</p>
-              <MdOutlineDelete className='text-red-500 font-bold text-lg cursor-pointer btn'  onClick={()=>deletetodo(index)}/>
+            <div key={index} className='w-full bg-blue-50  p-3 grid grid-cols-3   justify-items-end items-center shadow rounded-full  '>
+              <h4 className='text-blue-700 text-lg font-bold overflow-hidden text-clip' >{todo.title}</h4>
+              <p className='text-blue-500 text-balance font-semibold overflow-hidden text-clip'>{todo.desc}</p>
+              <MdOutlineDelete className='text-red-500  font-bold text-lg w-5 h-5 cursor-pointer btn'  onClick={()=>deletetodo(index)}/>
             </div>
           );
         })

@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
 import Todos from "./Todos";
-import { useDispatch, } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTodo } from "../store/slices/TodoSlice";
 
 const TodoInput = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   // const [data, setData] = useState([]);
-  const dispatch = useDispatch()
- 
+  const dispatch = useDispatch();
 
   const HandleSubmit = (e) => {
     e.preventDefault();
     // setData((prevData) => [...prevData, { title, desc }]);
-    if(title  && desc){
-      dispatch(addTodo({ title, desc }));
-      setTitle("");
-      setDesc("");
-    }
-    else{
+    if (title && desc) {
+      if ((title.length < 20) & (desc.length < 30)) {
+        dispatch(addTodo({ title, desc }));
+        setTitle("");
+        setDesc("");
+      } else {
+        alert("Title and Description must be less than 30 characters");
+      }
+    } else {
       alert("Please fill all the fields");
     }
   };
@@ -26,8 +28,8 @@ const TodoInput = () => {
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos");
     if (storedTodos) {
-      const parseTodos = JSON.parse(storedTodos)
-      parseTodos.forEach(todo => {
+      const parseTodos = JSON.parse(storedTodos);
+      parseTodos.forEach((todo) => {
         dispatch(addTodo(todo));
       });
     }
@@ -57,15 +59,17 @@ const TodoInput = () => {
             className="p-1 shadow rounded-full px-2 border outline-blue-300
              placeholder:text-blue-300 "
           />
-          <button type="submit" className="btn  text-blue-700 font-bold p-2 rounded-full   border-2 border-blue-700 active:bg-blue-700 active:text-blue-200 w-fit">Submit</button>
-        </div> 
-        
-        
+          <button
+            type="submit"
+            className="btn  text-blue-700 font-bold p-2 rounded-full   border-2 border-blue-700 active:bg-blue-700 active:text-blue-200 w-fit"
+          >
+            Submit
+          </button>
+        </div>
       </form>
-        <hr className="text-black bg-black border-2 w-full"/>
-      
-    
-      <Todos  />
+      <hr className="text-black bg-black border-2 w-full" />
+
+      <Todos />
     </div>
   );
 };
